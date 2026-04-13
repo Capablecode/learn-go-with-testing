@@ -1,6 +1,7 @@
 package sum
 
 import (
+	"slices"
 	"testing"
 )
 
@@ -36,10 +37,10 @@ import (
 // }
 
 func TestSumAll(t *testing.T) {
-	got := Sum([]int{1, 2}, []int{0, 9})
+	got := SumAll([]int{1, 2}, []int{0, 9})
 	expected := []int{3, 9}
 
-	if got != expected {
-		t.Errorf("got '%d' but expected '%d', %v", got, expected)
+	if !slices.Equal(got, expected) {
+		t.Errorf("got '%v' but expected '%v'", got, expected)
 	}
 }

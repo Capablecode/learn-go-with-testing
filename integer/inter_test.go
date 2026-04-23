@@ -8,7 +8,6 @@ import (
 func ExampleAdd() {
 	sum := Add(5, 4)
 	fmt.Println(sum)
-
 }
 
 func TestIntger(t *testing.T) {
@@ -18,5 +17,4 @@ func TestIntger(t *testing.T) {
 	if sum != expected {
 		t.Errorf("Wanted '%d' but got '%d'", expected, sum)
 	}
-
 }

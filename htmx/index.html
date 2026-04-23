@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+        integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div hx-target="this" hx-swap="outerHTML">
+        <div><label>First Name</label>: Joe</div>
+        <div><label>Last Name</label>: Blow</div>
+        <div><label>Email</label>: joe@blow.com</div>
+        <button hx-get="/contact/1/edit" class="btn primary">
+            Click To Edit
+        </button>
+    </div>
+
+    <!-- <form hx-put="/contact/1" hx-target="this" hx-swap="outerHTML">
+        <div>
+            <label>First Name</label>
+            <input type="text" name="firstName" value="Joe">
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="lastName" value="Blow">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" value="joe@blow.com">
+        </div>
+        <button class="btn" type="submit">Submit</button>
+        <button class="btn" hx-get="/contact/1">Cancel</button>
+    </form> -->
+</body>
+
+</html>

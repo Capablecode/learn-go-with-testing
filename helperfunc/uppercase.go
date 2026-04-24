@@ -46,3 +46,7 @@ func FixQuotes(text string) string {
 	result := trimBackTick.ReplaceAllString(text, "'$1'")
 	return result
 }
+
+// func CapitalizeFirstLetterOfTheLastTwoWords(word string)[]string{
+// 	lastTwoWords := len(word)-2
+// 	return st

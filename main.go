@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
-	"learning/hex"
+	// "learning/hex"
 	// "learning/helperfunc"
 	// "learning/pointer"
 	// "learning/reverse"
 	// "learning/article"
 	// "learning/lesson"
 	// "learning/punctuation"
+	// "learning/algorithm"
+	"learning/struc"
 )
 
 // "fmt"
-// "learning/algorithm"
+
 // "learning/lesson"
 // "learning/sum"
 
@@ -45,8 +47,8 @@ func main() {
 	// fmt.Println(helperfunc.Cap(text))
 	// text := "1af"
 	// fmt.Println(hex.ConvertHexidecimal(text))
-	text := "10"
-	fmt.Println(hex.ConvertBinary(text))
+	// text := "10"
+	// fmt.Println(hex.ConvertBinary(text))
 	// text := "SUNDAY"
 	// fmt.Println(helperfunc.Lower(text))
 
@@ -69,4 +71,21 @@ func main() {
 	// 	http.HandleFunc("/", greet)
 	// 	http.ListenAndServe(":8080", nil)
 	// }
+
+	s1 := student{
+		Name : "Sunday",
+		Age: 20,
+		score : []int{70, 80, 90},
+	}
+	s2 := student{
+		Name : "Sammy",
+		Age: 25,
+		score : []int{50, 80, 60},
+	}
+	s3 := student{
+		Name : "Ebenezer",
+		Age: 19,
+		score : []int{30, 70, 20},
+	}
+	students := []
 }

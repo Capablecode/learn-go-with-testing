@@ -1,6 +1,6 @@
 package algorithm
 
-func PrintMaxNum(numSlice []int) (int, int) {
+func PrintMaxNum(numSlice []int) (int) {
 	maxValue := numSlice[0]
 	minValue := numSlice[0]
 	for i := 0; i < len(numSlice); i++ {
@@ -11,5 +11,5 @@ func PrintMaxNum(numSlice []int) (int, int) {
 			minValue = numSlice[i]
 		}
 	}
-	return maxValue, minValue
+	return maxValue
 }

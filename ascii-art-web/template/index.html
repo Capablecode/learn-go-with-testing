@@ -10,13 +10,13 @@
 <body>
     <h1>Welcome To our Ascii Art Project</h1>
     <form method="post" action="/printascii">
-        <textarea></textarea>
-        <select>
-            <option>standard</option>
-            <option>shadow</option>
-            <option>thinkertoy</option>
+        <textarea name="text"></textarea>
+        <select name="banners">
+            <option value="standard.txt">standard</option>
+            <option value="shadow.txt">shadow</option>
+            <option value="thinkertoy.txt"> thinkertoy</option>
         </select>
-        <input type="submit" value="submit">
+    <button type="submit"> Generate</button>
     </form>
 </body>
 

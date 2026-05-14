@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+
 	// "learning/hex"
 	// "learning/helperfunc"
 	// "learning/pointer"
@@ -10,7 +10,13 @@ import (
 	// "learning/lesson"
 	// "learning/punctuation"
 	// "learning/algorithm"
-	"learning/struc"
+	// animashelter "learning/AnimaShelter"
+	"fmt"
+	// "learning/interfaces"
+	"net/http"
+
+	// "fmt"
+	"learning/ascii-art-web"
 )
 
 // "fmt"
@@ -57,11 +63,11 @@ func main() {
 	// text := "There it was. A amazing rock!"
 	// fmt.Println(article.Article(text))
 
-	// import (
+	//  import (
 	// 	"fmt"
-	// 	"net/http"
-	// 	"time"
-	// )
+	// // 	"net/http"
+	// // 	"time"
+	//  )
 
 	// func greet(w http.ResponseWriter, r *http.Request) {
 	// 	fmt.Fprintf(w, "Hello World! %s", time.Now())
@@ -72,20 +78,25 @@ func main() {
 	// 	http.ListenAndServe(":8080", nil)
 	// }
 
-	s1 := student{
-		Name : "Sunday",
-		Age: 20,
-		score : []int{70, 80, 90},
-	}
-	s2 := student{
-		Name : "Sammy",
-		Age: 25,
-		score : []int{50, 80, 60},
-	}
-	s3 := student{
-		Name : "Ebenezer",
-		Age: 19,
-		score : []int{30, 70, 20},
-	}
-	students := []
+	// myCard := interfaces.CreditCard{CardNumber: "1234-5678-9012-3456"}
+	// myPaypal := interfaces.Paypal{Email: "alabisunday@gmail.com"}
+
+	// interfaces.ProcessPayment(myCard, 200.00)
+	// interfaces.ProcessPayment(myPaypal, 50.0)
+
+		// dog := animashelter.Dog{Name: "german"}
+		// cat := animashelter.Cat{Breed: "persia"}
+
+		// // animashelter.MakeThemTalk(dog)
+		// // animashelter.MakeThemTalk(cat)
+
+		// animals := []animashelter.Speaker{dog, cat}
+		// for _, animal := range animals{
+		// 	animashelter.MakeThemTalk(animal)
+		// }
+		mux := http.NewServeMux()
+		mux.HandleFunc("/", asciiartweb.ServeHome)
+		mux.HandleFunc("/printascii", asciiartweb.PrintAscii)
+		fmt.Println("Server starting at :8080...")
+		http.ListenAndServe(":8080", mux)
 }

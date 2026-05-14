@@ -1,4 +1,4 @@
-package struc
+package main
 
 type student struct{
 	Name	string
@@ -20,9 +20,5 @@ func (s student) AverageScore() float64{
 
 func (s student) hasPassed() bool{
 	currentAvaerage := s.AverageScore()
-	if currentAvaerage >= 50{
-		return true
-	}else{
-		return false
-	}
+	return currentAvaerage >= 50
 }

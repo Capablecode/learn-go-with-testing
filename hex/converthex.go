@@ -17,3 +17,4 @@ func ConvertBinary(word string) string {
 	}
 	return strconv.FormatInt(val, 10)
 }
+

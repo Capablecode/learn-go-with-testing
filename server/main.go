@@ -7,9 +7,10 @@ import (
 
 // define a home hanler
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	// if r.URL.path != "/"{
-
-	// }
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
 	w.Write([]byte("Hello from Snippetbox"))
 }
 
@@ -18,7 +19,12 @@ func ShowSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateSnippet(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Create a new snippet"))
+	if r.Method != http.MethodPost {
+		w.WriteHeader(405)
+		w.Write([]byte("Method not Allowed"))
+		return
+	}
+	w.Write([]byte("Create a new snippet..."))
 }
 
 func main() {

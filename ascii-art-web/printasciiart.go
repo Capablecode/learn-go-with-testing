@@ -9,15 +9,16 @@ import (
 	"strings"
 )
 
+type pageResult struct{
+	Result string
+}
 func PrintAscii(w http.ResponseWriter, r *http.Request) {
-	// if r.Method != http.MethodPost {
-	// 	http.Error(w, "Bad Request", http.StatusBadRequest)
-	// }
+	if r.Method != http.MethodPost {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+	}
 	text := r.FormValue("text")
 	banner := r.FormValue("banners")
 	log.Println(text, banner)
-	// text := "hello"
-	// banner := "standard.txt"
 
 	if text == "" || banner == "" {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
@@ -25,29 +26,52 @@ func PrintAscii(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newText := strings.Split(text, "\n")
-	banners, err := ReadFile(banner)
+	bannerPath := "ascii-art-web/font/" + banner
+	banners, err := ReadFile(bannerPath)
 	if err != nil {
+		log.Println("ReadFile Error :", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 
 	result, err := GenerateAsciiArt(newText, banners)
 	if err != nil {
 		http.Error(w, "Non Printable Charater", http.StatusBadRequest)
+		return
 	}
-	w.Write([]byte(result))
-}
-
-func ServeHome(w http.ResponseWriter, r *http.Request) {
-	templ, err := template.ParseFiles("ascii-art-web/template/index.html")
+	templ, err := template.ParseFiles(
+		"ascii-art-web/template/base.tmpl.html",
+		"ascii-art-web/template/home.tmpl.html",
+		"ascii-art-web/template/partial/result.tmpl.html",
+	)
 	if err != nil {
+		log.Println("Template error:", err)
 		http.Error(w, "Template not found", http.StatusInternalServerError)
 		return
 	}
 
-	err = templ.Execute(w, nil)
+	value := pageResult{Result: result}
+	err = templ.ExecuteTemplate(w, "base", value)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func ServeHome(w http.ResponseWriter, r *http.Request) {
+	templ, err := template.ParseFiles(
+		"ascii-art-web/template/base.tmpl.html",
+		"ascii-art-web/template/home.tmpl.html",
+		"ascii-art-web/template/partial/result.tmpl.html",
+	)
+	if err != nil {
+		log.Println("Template error:", err)
+		http.Error(w, "Template not found", http.StatusInternalServerError)
 		return
+	}
+
+	err = templ.ExecuteTemplate(w, "base", pageResult{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
@@ -80,11 +104,11 @@ func GenerateAsciiArt(text, banner []string) (string, error) {
 }
 
 func ReadFile(path string) ([]string, error) {
-	data, err := os.ReadFile("ascii-art-web/standard.txt")
+	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
-	files := string(data)
+	files := strings.ReplaceAll(string(data), "\r\n", "\n")
 	result := strings.Split(files, "\n")
 	return result, nil
 }

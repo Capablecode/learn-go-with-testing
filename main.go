@@ -13,16 +13,12 @@ import (
 	// animashelter "learning/AnimaShelter"
 	"fmt"
 	// "learning/interfaces"
+	asciiartweb "learning/ascii-art-web"
 	"net/http"
-
+	// "learning/lesson"
+	// "learning/sum"
 	// "fmt"
-	"learning/ascii-art-web"
 )
-
-// "fmt"
-
-// "learning/lesson"
-// "learning/sum"
 
 func main() {
 	// fmt.Println(lesson.Factorial_Recursion(5))
@@ -84,19 +80,19 @@ func main() {
 	// interfaces.ProcessPayment(myCard, 200.00)
 	// interfaces.ProcessPayment(myPaypal, 50.0)
 
-		// dog := animashelter.Dog{Name: "german"}
-		// cat := animashelter.Cat{Breed: "persia"}
+	// dog := animashelter.Dog{Name: "german"}
+	// cat := animashelter.Cat{Breed: "persia"}
 
-		// // animashelter.MakeThemTalk(dog)
-		// // animashelter.MakeThemTalk(cat)
+	// // animashelter.MakeThemTalk(dog)
+	// // animashelter.MakeThemTalk(cat)
 
-		// animals := []animashelter.Speaker{dog, cat}
-		// for _, animal := range animals{
-		// 	animashelter.MakeThemTalk(animal)
-		// }
-		mux := http.NewServeMux()
-		mux.HandleFunc("/", asciiartweb.ServeHome)
-		mux.HandleFunc("/printascii", asciiartweb.PrintAscii)
-		fmt.Println("Server starting at :8080...")
-		http.ListenAndServe(":8080", mux)
+	// animals := []animashelter.Speaker{dog, cat}
+	// for _, animal := range animals{
+	// 	animashelter.MakeThemTalk(animal)
+	// }
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", asciiartweb.ServeHome)
+	mux.HandleFunc("/ascii-art", asciiartweb.PrintAscii)
+	fmt.Println("Server starting at :5000...")
+	http.ListenAndServe(":5000", mux)
 }

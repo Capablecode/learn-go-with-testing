@@ -3,38 +3,43 @@ package asciiartweb
 import (
 	"fmt"
 	"html/template"
-	"log"
+
+	// "log"
 	"net/http"
 	"os"
 	"strings"
 )
 
-type pageResult struct{
+type pageResult struct {
 	Result string
 }
+
 func PrintAscii(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 	text := r.FormValue("text")
 	banner := r.FormValue("banners")
-	log.Println(text, banner)
+
+	text = strings.ReplaceAll(text, "\\n", "\n")
+	text = strings.ReplaceAll(text, "\r\n", "\n")
 
 	if text == "" || banner == "" {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
 
-	newText := strings.Split(text, "\n")
+	newSplitText := strings.Split(text, "\n")
 	bannerPath := "ascii-art-web/font/" + banner
-	banners, err := ReadFile(bannerPath)
+
+	bannersData, err := ReadFile(bannerPath)
 	if err != nil {
-		log.Println("ReadFile Error :", err)
+		// log.Println("ReadFile Error :", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
-	result, err := GenerateAsciiArt(newText, banners)
+	result, err := GenerateAsciiArt(newSplitText, bannersData)
 	if err != nil {
 		http.Error(w, "Non Printable Charater", http.StatusBadRequest)
 		return
@@ -45,7 +50,7 @@ func PrintAscii(w http.ResponseWriter, r *http.Request) {
 		"ascii-art-web/template/partial/result.tmpl.html",
 	)
 	if err != nil {
-		log.Println("Template error:", err)
+		// log.Println("Template error:", err)
 		http.Error(w, "Template not found", http.StatusInternalServerError)
 		return
 	}
@@ -64,7 +69,7 @@ func ServeHome(w http.ResponseWriter, r *http.Request) {
 		"ascii-art-web/template/partial/result.tmpl.html",
 	)
 	if err != nil {
-		log.Println("Template error:", err)
+		// log.Println("Template error:", err)
 		http.Error(w, "Template not found", http.StatusInternalServerError)
 		return
 	}
@@ -72,6 +77,7 @@ func ServeHome(w http.ResponseWriter, r *http.Request) {
 	err = templ.ExecuteTemplate(w, "base", pageResult{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -93,6 +99,9 @@ func GenerateAsciiArt(text, banner []string) (string, error) {
 				}
 				character_index := int(text[k][j] - 32)
 				start := (character_index * 9) + i
+				if start >= len(banner) {
+					return "", fmt.Errorf("Banner File Corrupted")
+				}
 				result.WriteString((banner[start]))
 			}
 			//Move to a new line to continue printing the block of character line by line

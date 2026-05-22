@@ -37,7 +37,7 @@ func Cap(word string) string {
 	return strings.ToUpper(string(word))
 }
 
-func Lower(word string) string{
+func Lower(word string) string {
 	return strings.ToLower(string(word))
 }
 
@@ -47,6 +47,28 @@ func FixQuotes(text string) string {
 	return result
 }
 
-// func CapitalizeFirstLetterOfTheLastTwoWords(word string)[]string{
-// 	lastTwoWords := len(word)-2
-// 	return st
+// func CalculateYears(years int) (result [3]int) {
+//   // Write your solution here
+//   if years == 1{
+//     humanYears := 1
+//     catYear := 15
+//     dogYear := 15
+//     result[0] = humanYears
+//     result[1] = catYear
+//     result[2] = dogYear
+//   }else if(years == 2){
+//     humanYears := 2
+//     catYear := 15 + 9
+//     dogYear := 15 + 9
+//     result[0] = humanYears
+//     result[1] = catYear
+//     result[2] = dogYear
+//   }else{
+// 	humanYears := humanYears - 2
+//     catYear := 24 + (3 * 4)
+//     dogYear := 24 + (3 * 5)
+//     result[1] := catYear
+//     result[2] := dogYear
+//   }
+//   return result
+// }

@@ -1,8 +1,9 @@
-package asciiartweb
+package handler
 
 import (
 	"fmt"
 	"html/template"
+	"path/filepath"
 
 	// "log"
 	"net/http"
@@ -30,7 +31,8 @@ func PrintAscii(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newSplitText := strings.Split(text, "\n")
-	bannerPath := "ascii-art-web/font/" + banner
+	// bannerPath := "font/" + banner
+	bannerPath := filepath.Join("font", banner)
 
 	bannersData, err := ReadFile(bannerPath)
 	if err != nil {
@@ -44,10 +46,11 @@ func PrintAscii(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Non Printable Charater", http.StatusBadRequest)
 		return
 	}
+	
 	templ, err := template.ParseFiles(
-		"ascii-art-web/template/base.tmpl.html",
-		"ascii-art-web/template/home.tmpl.html",
-		"ascii-art-web/template/partial/result.tmpl.html",
+		"template/base.tmpl.html",
+		"template/home.tmpl.html",
+		"template/partial/result.tmpl.html",
 	)
 	if err != nil {
 		// log.Println("Template error:", err)
@@ -64,9 +67,9 @@ func PrintAscii(w http.ResponseWriter, r *http.Request) {
 
 func ServeHome(w http.ResponseWriter, r *http.Request) {
 	templ, err := template.ParseFiles(
-		"ascii-art-web/template/base.tmpl.html",
-		"ascii-art-web/template/home.tmpl.html",
-		"ascii-art-web/template/partial/result.tmpl.html",
+		"template/base.tmpl.html",
+		"template/home.tmpl.html",
+		"template/partial/result.tmpl.html",
 	)
 	if err != nil {
 		// log.Println("Template error:", err)
